@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Mood Switcher</title>
+  <style>
+    :root {
+      --primary-bg: #f0f0f0;
+      --primary-text: #1a1a1a;
+      --accent: #00aaff;
+    }
+
+    body[data-theme='dark'] {
+      --primary-bg: #1a1a1a;
+      --primary-text: #f0f0f0;
+      --accent: #ff6600;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--primary-bg);
+      color: var(--primary-text);
+      font-family: 'Segoe UI', sans-serif;
+      display: grid;
+      place-items: center;
+      height: 100vh;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    .box {
+      text-align: center;
+      padding: 2rem;
+      border: 2px dashed var(--accent);
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .switch-btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .switch-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .emoji {
+      font-size: 3rem;
+      transition: transform 0.3s;
+    }
+
+    body[data-theme='dark'] .emoji {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="emoji">🌓</div>
+    <h1>Color Mood Switcher</h1>
+    <p>Tap the button to toggle your site's vibe ✨</p>
+    <button class="switch-btn" id="toggleTheme">Switch Theme</button>
+  </div>
+
+  <script>
+    const toggleButton = document.getElementById('toggleTheme');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme) {
+      document.body.setAttribute('data-theme', currentTheme);
+    }
+
+    toggleButton.addEventListener('click', () => {
+      const isDark = document.body.getAttribute('data-theme') === 'dark';
+      document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>
